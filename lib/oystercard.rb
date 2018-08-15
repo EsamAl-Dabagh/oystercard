@@ -8,7 +8,7 @@ class Oystercard
   def initialize
     @balance = 0
     @card_status = false
-  
+    @entry_station = nil
   end
 
   def top_up(amount)
