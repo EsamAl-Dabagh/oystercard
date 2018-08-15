@@ -2,11 +2,21 @@ require 'oystercard'
 
 describe Oystercard do 
 
-  let(:cardWithBalance100) { double :oystercard, :balance => 100}
-
-  describe "#balance" do
+  describe ".balance" do
     it "returns the balance on the .oystercard" do
       expect(subject.balance).to eq 0
+    end
+  end
+  describe ".journey_history" do
+    it "should be empty on instatiation" do
+      expect(subject.journey_history).to eq []
+    end
+
+    it "logs journeys in hashes" do
+      subject.top_up(10)
+      subject.touch_in("Liverpool Street")
+      subject.touch_out("Bank")
+      expect(subject.journey_history).to eq([{"Entry station" => "Liverpool Street", "Exit station" => "Bank"}])
     end
   end
 
@@ -17,7 +27,7 @@ describe Oystercard do
     end
     it "should raise an error if maximum balance is exceeded by #topup" do
       max = Oystercard::MAXIMUM_BALANCE
-      subject.top_up(90)
+      subject.top_up(max)
       expect { subject.top_up(1) }.to raise_error("Maximum value of #{max} on Oystercard reached!!")
     end
   end
@@ -73,7 +83,7 @@ describe Oystercard do
       subject.touch_out("Victoria")
     end
     it "should return the most recent journey" do
-      expect(subject.journey).to eq "Start station: Aldgate East; End station: Victoria"
+      expect(subject.last_journey).to eq "Start station: Aldgate East; End station: Victoria"
     end
   end
 end
