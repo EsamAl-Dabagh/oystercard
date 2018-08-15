@@ -9,7 +9,7 @@ module Zones
       zone = index + 1 if stations.include?(name)
     end
 
-    zone 
+    zone
   end
 
 end
