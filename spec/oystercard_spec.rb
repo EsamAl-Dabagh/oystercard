@@ -73,7 +73,7 @@ describe Oystercard do
       subject.touch_out("Victoria")
     end
     it "should return the most recent journey" do
-      expect(subject.journey).to eq "Start station: Aldgate East; End station: Victoria"
+      expect(subject.last_journey).to eq "Start station: Aldgate East; End station: Victoria"
     end
   end
 end

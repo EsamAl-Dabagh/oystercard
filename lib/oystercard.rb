@@ -18,9 +18,8 @@ class Oystercard
     @balance += amount
   end
 
-
   def in_journey?
-    @entry_station ? true : false 
+    !!@entry_station
   end
 
   def touch_in(station)
@@ -30,9 +29,13 @@ class Oystercard
 
   def touch_out(station)
     deduct(MINIMUM_FARE)
-    @entry_station = nil
     @exit_station = station
     complete_journey
+    @entry_station = nil
+  end
+
+  def last_journey
+    "Start station: #{journey["Entry station"]}; End station: #{journey["Exit station"]}"
   end
 
   private
