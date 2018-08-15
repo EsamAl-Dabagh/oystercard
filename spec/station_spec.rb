@@ -8,6 +8,6 @@ describe Station do
 
   it "has a zone" do
     waterloo = Station.new("Waterloo")
-    expect(waterloo.zone).to eq(1)
+    expect(waterloo.station_zone).to eq(1)
   end
 end

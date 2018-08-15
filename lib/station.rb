@@ -1,21 +1,12 @@
-class Station   
+require 'zones'
 
-  attr_reader :name
+class Station   
+  include Zones
+  attr_reader :name, :station_zone
 
   def initialize(name)
     @name = name
-  end
-
-  def zone 
-    zones = [["Waterloo", "Aldgate East"],["Camden", "Lambeth"]]
-
-    zone = 0
-
-    zones.each_with_index do |stations, index|
-      zone = index + 1 if stations.include?(name)
-    end
-
-    zone 
+    @station_zone = find_zone(name)
   end
 
 end
