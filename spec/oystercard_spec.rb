@@ -14,9 +14,9 @@ describe Oystercard do
 
     it "logs journeys in hashes" do
       subject.top_up(10)
-      subject.touch_in("Liverpool Street")
-      subject.touch_out("Bank")
-      expect(subject.journey_history).to eq([{"Entry station" => "Liverpool Street", "Exit station" => "Bank"}])
+      subject.touch_in("Waterloo")
+      subject.touch_out("Camden")
+      expect(subject.journey_history).to eq([{"Entry station" => "Waterloo", "Exit station" => "Camden"}])
     end
   end
 
@@ -42,23 +42,23 @@ describe Oystercard do
     before(:each) do
       subject.top_up(Oystercard::MINIMUM_FARE)
     end
-    it "should change #in_journey to true" do 
-      subject.touch_in("Aldgate East")
-      expect(subject.in_journey?).to eq true
-    end
+    # it "should change #in_journey to true" do 
+    #   subject.touch_in("Aldgate East")
+    #   expect(subject.in_journey?).to eq true
+    # end
     it "should raise an error if insufficient funds (minumum fare - 1)" do
       # Overriding the 'before' stuff
       subject.instance_variable_set(:@balance,Oystercard::MINIMUM_FARE - 1)
       expect { subject.touch_in("Aldgate East") }.to raise_error("Insufficient funds, you have #{subject.balance} on your card")
     end
-    it "should set entry station when it is touched_in" do
-      subject.touch_in("Aldgate East")
-      expect(subject.entry_station).to eq "Aldgate East"
-    end
-    it "should set exit station when #touch_out is called" do
-      subject.touch_out("Victoria")
-      expect(subject.exit_station).to eq "Victoria"
-    end
+    # it "should set entry station when it is touched_in" do
+    #   subject.touch_in("Aldgate East")
+    #   expect(subject.entry_station).to eq "Aldgate East"
+    # end
+    # it "should set exit station when #touch_out is called" do
+    #   subject.touch_out("Victoria")
+    #   expect(subject.exit_station).to eq "Victoria"
+    # end
   end
 
   describe "#touch_out" do
@@ -82,8 +82,8 @@ describe Oystercard do
       subject.touch_in("Aldgate East")
       subject.touch_out("Victoria")
     end
-    it "should return the most recent journey" do
-      expect(subject.last_journey).to eq "Start station: Aldgate East; End station: Victoria"
-    end
+    # it "should return the most recent journey" do
+    #   expect(subject.last_journey).to eq "Start station: Aldgate East; End station: Victoria"
+    # end
   end
 end
